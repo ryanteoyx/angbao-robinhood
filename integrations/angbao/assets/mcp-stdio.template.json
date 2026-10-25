@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "angbao": {
+      "command": "/CHOSEN_PREFIX/bin/angbao",
+      "args": ["mcp"]
+    }
+  }
+}

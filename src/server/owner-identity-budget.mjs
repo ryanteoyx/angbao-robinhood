@@ -1,0 +1,17 @@
+/** Separate existing-account identity scope. Never grants preparation, signing or submission. */
+import {randomUUID} from 'node:crypto';
+import {readFile,open,rename,unlink} from 'node:fs/promises';
+import path from 'node:path';
+import {absolute,ownedDirectory,physical,withSetupLock} from '../../cli/setup-state.mjs';
+const SEQUENCE=['eth_chainId','eth_getBlockByNumber','eth_getCode','eth_getStorageAt','eth_getCode','eth_getCode','eth_getCode','eth_getCode','eth_call','eth_call','eth_call','eth_call','eth_call','eth_call','eth_call','eth_call','eth_getCode','eth_chainId','eth_supportedEntryPoints','eth_getBlockByNumber'];
+const exact=(v,keys)=>{if(!v||typeof v!=='object'||Array.isArray(v)||![Object.prototype,null].includes(Object.getPrototypeOf(v)))throw Error();const ds=Object.getOwnPropertyDescriptors(v);if(Reflect.ownKeys(ds).length!==keys.length||keys.some(k=>!ds[k]?.enumerable||!Object.hasOwn(ds[k],'value')))throw Error();};
+function validate(record){exact(record,['scope','intentDigest','sourceProvenanceDigest','index','packet','role','method','requestKey']);if(record.scope!=='existing-owner-identity'||!['intentDigest','sourceProvenanceDigest','requestKey'].every(k=>typeof record[k]==='string'&&/^[a-f0-9]{64}$/.test(record[k]))||!Number.isInteger(record.index)||record.index<1||record.index>20||record.packet!==(record.index<=12?'A':'B')||record.role!==([18,19].includes(record.index)?'bundler':'execution')||record.method!==SEQUENCE[record.index-1])throw Error();return structuredClone(record);}
+function check(records){if(!Array.isArray(records)||records.length>1280)throw Error();const counts=new Map(),sources=new Map(),keys=new Set();for(const record of records){validate(record);if(keys.has(record.requestKey))throw Error();keys.add(record.requestKey);const used=(counts.get(record.intentDigest)||0)+1;if(used!==record.index||used>20||sources.has(record.intentDigest)&&sources.get(record.intentDigest)!==record.sourceProvenanceDigest)throw Error();counts.set(record.intentDigest,used);sources.set(record.intentDigest,record.sourceProvenanceDigest);if(counts.size>64)throw Error();}return keys;}
+export function createOwnerIdentityBudget({directory}={}){
+ absolute(directory);const file=path.join(directory,'owner-identity-budget.json');
+ return Object.freeze({async reserveRequest(value){try{const record=validate(value),info=await ownedDirectory(directory);if(info.mode&0o077)return false;
+ return await withSetupLock(directory,async()=>{let records=[];const saved=await physical(file,{missing:true});if(saved){if(!saved.isFile()||saved.uid!==process.getuid()||saved.mode&0o077||saved.size>512*1024)return false;const body=JSON.parse(await readFile(file,'utf8'));exact(body,['format','records']);if(body.format!=='angbao-owner-identity-budget@1')return false;records=body.records;}
+ const keys=check(records);if(keys.has(record.requestKey))return false;const next=[...records,record];check(next);const bytes=JSON.stringify({format:'angbao-owner-identity-budget@1',records:next});if(Buffer.byteLength(bytes)>512*1024)return false;
+ const temporary=path.join(directory,`.identity-budget-${randomUUID()}.tmp`);let handle;try{handle=await open(temporary,'wx',0o600);await handle.writeFile(bytes);await handle.sync();await handle.close();handle=null;await rename(temporary,file);const parent=await open(directory,'r');try{await parent.sync();}finally{await parent.close();}}finally{await handle?.close();await unlink(temporary).catch(()=>{});}return true;});
+ }catch{return false;}}});
+}

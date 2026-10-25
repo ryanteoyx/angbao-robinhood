@@ -1,0 +1,19 @@
+{
+  "format": "angbao-vendored-public-codecs@1",
+  "package": "viem",
+  "version": "2.57.11",
+  "esbuildVersion": "0.28.0",
+  "exports": [
+    "decodeFunctionResult",
+    "encodeFunctionData",
+    "parseAbi",
+    "getContractAddress",
+    "keccak256"
+  ],
+  "dependencyLock": "goal-transfer-viem.dependency-lock.json",
+  "dependencyLockSha256": "9fa72f758040e79bd4318db0e991b309e19613ff169152a8a4781ef4549a96cc",
+  "licenses": "goal-transfer-viem.LICENSES.txt",
+  "bundleSha256": "92877d5ab85284259a9bfed44cff61297626b7db6499dc548bb6788aaaa434be",
+  "bundleBytes": 46003,
+  "purpose": "Offline ABI and CREATE2/hash operations; no clients, transports, accounts or signers."
+}

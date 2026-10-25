@@ -1,0 +1,13 @@
+{
+  "question": "What supports and challenges this reserve choice?",
+  "answer": "The evidence is incomplete. This is final authored synthesis, not a verified financial recommendation.",
+  "authorship": "agent-authored",
+  "evidence": [
+    {"id":"e1","title":"Example source, replace before use","url":"https://example.org/source","publishedAt":null,"observedAt":null,"excerpt":"Replace with a short supported excerpt."}
+  ],
+  "claims": [
+    {"id":"c1","stance":"supporting","text":"Replace with a claim actually supported by the cited evidence.","evidenceIds":["e1"]}
+  ],
+  "inferences": [{"text":"Replace with a clearly labeled inference, or leave this list empty.","claimIds":["c1"]}],
+  "gaps": ["No contradicting evidence has been supplied in this example."]
+}

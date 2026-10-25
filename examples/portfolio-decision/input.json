@@ -1,0 +1,180 @@
+{
+  "method": {
+    "id": "portfolio-contribution",
+    "version": "1.0.0"
+  },
+  "asOf": "2026-10-24T08:00:00.000Z",
+  "sources": [
+    {
+      "format": "angbao-supplied-financial-source@1",
+      "sourceId": "source-widget-note",
+      "version": 1,
+      "channel": "x",
+      "capture": "user-forwarded",
+      "contentKind": "source-excerpt",
+      "url": "https://x.com/example/status/123",
+      "text": "Synthetic test excerpt: Widget described a proposed product launch. A separate critic questioned demand. This sample is not current news. Listed Widget shares and the issuer-specific tokenized claim have different rights and risks.",
+      "publishedAt": "2026-10-24T06:00:00.000Z",
+      "observedAt": "2026-10-24T07:00:00.000Z",
+      "verification": "unverified-supplied-content",
+      "contentIsInstructions": false,
+      "fetchedByAngbao": false,
+      "digest": "04a229096d1528f7f5e629960ca95e3b201cb3bb1536b54c0acccd8afe3e302d"
+    }
+  ],
+  "assessment": {
+    "format": "angbao-portfolio-assessment@1",
+    "id": "widget-assessment",
+    "version": 1,
+    "authorship": "agent-authored",
+    "intent": "prepare-DCA",
+    "sourceRefs": [
+      {
+        "sourceId": "source-widget-note",
+        "digest": "04a229096d1528f7f5e629960ca95e3b201cb3bb1536b54c0acccd8afe3e302d"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim-launch",
+        "stance": "supporting",
+        "text": "The supplied synthetic excerpt describes a proposal, not an achieved outcome.",
+        "sourceIds": [
+          "source-widget-note"
+        ]
+      },
+      {
+        "id": "claim-demand",
+        "stance": "contradicting",
+        "text": "The supplied synthetic excerpt also mentions doubts about demand and different instrument rights.",
+        "sourceIds": [
+          "source-widget-note"
+        ]
+      }
+    ],
+    "inferences": [
+      {
+        "text": "The excerpt supplies context but does not justify changing the owner allocation policy.",
+        "claimIds": [
+          "claim-launch",
+          "claim-demand"
+        ]
+      }
+    ],
+    "focusInstrumentIds": [
+      "listed-widget",
+      "tokenized-widget"
+    ],
+    "relevance": [
+      {
+        "instrumentId": "listed-widget",
+        "claimIds": [
+          "claim-launch",
+          "claim-demand"
+        ],
+        "relation": "context-only"
+      },
+      {
+        "instrumentId": "tokenized-widget",
+        "claimIds": [
+          "claim-demand"
+        ],
+        "relation": "context-only"
+      }
+    ],
+    "counterevidence": {
+      "claimIds": [
+        "claim-demand"
+      ],
+      "gap": "No independent source corroboration or instrument-rights verification was performed."
+    },
+    "gaps": [
+      "Synthetic supplied text and manual valuations remain unverified."
+    ],
+    "proposedPolicyChanges": []
+  },
+  "portfolio": {
+    "format": "angbao-portfolio-snapshot@1",
+    "id": "manual-portfolio",
+    "version": 1,
+    "source": "sample",
+    "currency": "USD",
+    "minorUnitExponent": 2,
+    "observedAt": "2026-10-24T07:30:00.000Z",
+    "coverage": "complete",
+    "cashMinor": 20000,
+    "committedCashMinor": 1000,
+    "positions": [
+      {
+        "instrument": {
+          "id": "listed-widget",
+          "kind": "listed-equity",
+          "identity": {
+            "exchange": "XNAS",
+            "ticker": "WIDGET"
+          }
+        },
+        "valueMinor": 20000
+      },
+      {
+        "instrument": {
+          "id": "tokenized-widget",
+          "kind": "tokenized-equity",
+          "identity": {
+            "network": "eip155:46630",
+            "contractAddress": "0x1111111111111111111111111111111111111111",
+            "issuer": "Example token issuer",
+            "underlyingListedId": "listed-widget"
+          }
+        },
+        "valueMinor": 20000
+      },
+      {
+        "instrument": {
+          "id": "crypto-native",
+          "kind": "crypto",
+          "identity": {
+            "network": "eip155:1",
+            "assetId": "native"
+          }
+        },
+        "valueMinor": 60000
+      }
+    ]
+  },
+  "policy": {
+    "format": "angbao-allocation-policy@1",
+    "id": "owner-allocation",
+    "version": 3,
+    "source": "owner-supplied",
+    "currency": "USD",
+    "minorUnitExponent": 2,
+    "cashTargetBps": 1000,
+    "targets": [
+      {
+        "instrumentId": "listed-widget",
+        "targetBps": 3000,
+        "instrumentDigest": "cbf86ca2b954f154251e8fe74699da3f77c0b257453fb894f194a9cf7fb49cee"
+      },
+      {
+        "instrumentId": "tokenized-widget",
+        "targetBps": 2000,
+        "instrumentDigest": "3cc87ff56213002e3b90710ba376231ebda00c816520a9e1fcf353c2767b06b7"
+      },
+      {
+        "instrumentId": "crypto-native",
+        "targetBps": 4000,
+        "instrumentDigest": "30df93f4b3f9a40b9dd13e3f4b58a1ec10b0f8f5c786a3db6d2152091f2e991e"
+      }
+    ],
+    "reserveMinor": 3000,
+    "maxPlanSpendMinor": 10000,
+    "feeAllowanceMinor": 500,
+    "maxSnapshotAgeHours": 24,
+    "maxSourceAgeHours": 168,
+    "dca": {
+      "installments": 4,
+      "cadence": "weekly"
+    }
+  }
+}

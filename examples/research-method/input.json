@@ -1,0 +1,35 @@
+{
+  "method": { "id": "evidence-review", "version": "1.0.0" },
+  "settings": { "maxEvidence": 2 },
+  "question": "What supports and challenges this illustrative topic?",
+  "asOf": "2026-10-24T08:00:00.000Z",
+  "evidencePacks": [
+    {
+      "format": "angbao-research-evidence@1",
+      "provider": "example",
+      "operation": "suppliedSources",
+      "endpoint": "fixture-only",
+      "query": { "topic": "Synthetic demo; not current market research" },
+      "retrievedAt": "2026-10-24T07:00:00.000Z",
+      "status": "partial",
+      "coverage": { "complete": false, "issues": ["synthetic-example-only"] },
+      "evidence": [
+        {
+          "id": "example:source:1", "kind": "source-reference", "provider": "example",
+          "sourceRecordId": "1", "sourceUrl": "https://example.org/illustrative-source",
+          "publishedAt": "2026-10-23T07:00:00.000Z", "retrievedAt": "2026-10-24T07:00:00.000Z",
+          "summary": null, "originalPostText": null, "verification": "supplied-reference-unverified"
+        },
+        {
+          "id": "example:event:2", "kind": "provider-summary", "provider": "example",
+          "sourceRecordId": "2", "sourceUrl": null, "publishedAt": null,
+          "retrievedAt": "2026-10-24T07:00:00.000Z", "providerAnalyzedAt": "2026-10-24T06:00:00.000Z",
+          "summary": { "title": "Illustrative derived summary", "text": "This synthetic provider interpretation needs personal-agent review.", "origin": "example-derived-summary" },
+          "originalPostText": null,
+          "citations": [{ "source": "web", "sourceRecordId": "2", "handle": null, "sourceUrl": "https://example.org/illustrative-counterpoint", "publishedAt": null }],
+          "verification": "provider-summary-not-independent-verification", "issues": ["source-publication-times-unavailable"]
+        }
+      ]
+    }
+  ]
+}

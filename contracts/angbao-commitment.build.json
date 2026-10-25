@@ -1,0 +1,342 @@
+{
+  "format": "angbao-commitment-build@1",
+  "purpose": "offline-contract-foundation",
+  "contract": {
+    "sourceName": "contracts/AngbaoCommitment.sol",
+    "contractName": "AngbaoCommitment",
+    "sourceSha256": "20af25cd73f46f497bbc398dd75664b1e0ff050ef6a7f4a0c9c68532c2b013b0"
+  },
+  "toolchain": {
+    "registry": "https://registry.npmjs.org/",
+    "packages": {
+      "@ethereumjs/common": "10.1.2",
+      "@ethereumjs/evm": "10.1.2",
+      "@ethereumjs/util": "10.1.2",
+      "solc": "0.8.30"
+    },
+    "packageJsonSha256": "e5996abe967a6a943071947fd53daad36d8363287a89d7b1b9c4de0396947086",
+    "packageLockSha256": "dd367a67c27e9035d965b83d7b2953a6aa0037ee44afe8db1444e7b2f5fabc64",
+    "compilerVersion": "0.8.30+commit.73712a01.Emscripten.clang",
+    "compilerSoljsonSha256": "3bb491a777f76dff9b2fe73ce29ca20e21a971b59a2f2cf8f73415424f00be06"
+  },
+  "standardInput": {
+    "language": "Solidity",
+    "sources": {
+      "contracts/AngbaoCommitment.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.30;\n\n/// @notice An opaque receipt target. Account permissions belong to the smart account.\n/// @dev A commitment is neither a performance proof nor verification of private inputs.\ncontract AngbaoCommitment {\n    error NonZeroValue();\n    error EmptyReference();\n    error AlreadyCommitted();\n\n    mapping(address account => mapping(bytes32 operationRef => bytes32 commitment)) public commitments;\n\n    event Committed(address indexed account, bytes32 indexed operationRef, bytes32 commitment);\n\n    function commit(bytes32 operationRef, bytes32 commitment) external payable {\n        if (msg.value != 0) revert NonZeroValue();\n        if (operationRef == bytes32(0) || commitment == bytes32(0)) revert EmptyReference();\n        if (commitments[msg.sender][operationRef] != bytes32(0)) revert AlreadyCommitted();\n        commitments[msg.sender][operationRef] = commitment;\n        emit Committed(msg.sender, operationRef, commitment);\n    }\n}\n"
+      }
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "shanghai",
+      "viaIR": false,
+      "metadata": {
+        "bytecodeHash": "ipfs",
+        "appendCBOR": true,
+        "useLiteralContent": true
+      },
+      "libraries": {},
+      "remappings": [],
+      "outputSelection": {
+        "*": {
+          "*": [
+            "abi",
+            "metadata",
+            "storageLayout",
+            "evm.bytecode.object",
+            "evm.bytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.methodIdentifiers"
+          ]
+        }
+      }
+    }
+  },
+  "standardInputSha256": "2b5a144406643597628cc7235c4732087d42d335ed9e62fc53047c36f76d5d14",
+  "standardOutputSha256": "92b83ae4053ea1cc00398fa9c052e4f8ff44f149e2afddbafeb0136bd97807ec",
+  "diagnostics": [],
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AlreadyCommitted",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyReference",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NonZeroValue",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "operationRef",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "Committed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "operationRef",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "operationRef",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commitments",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "abiSha256": "b90d7a473aecb5933994921ca521efaa3d73ace0e9641ee52798961c62561dc5",
+  "methodIdentifiers": {
+    "commit(bytes32,bytes32)": "e3ce094d",
+    "commitments(address,bytes32)": "8b1592b5"
+  },
+  "creationBytecode": {
+    "hex": "0x6080604052348015600e575f5ffd5b506101e08061001c5f395ff3fe608060405260043610610028575f3560e01c80638b1592b51461002c578063e3ce094d14610071575b5f5ffd5b348015610037575f5ffd5b5061005f610046366004610155565b5f60208181529281526040808220909352908152205481565b60405190815260200160405180910390f35b61008461007f36600461018a565b610086565b005b34156100a55760405163e320176b60e01b815260040160405180910390fd5b8115806100b0575080155b156100cd5760405162b4a20960e31b815260040160405180910390fd5b335f9081526020818152604080832085845290915290205415610103576040516317fd8aab60e31b815260040160405180910390fd5b335f8181526020818152604080832086845282529182902084905590518381528492917fd4cebf902bc5a93f89fc70c15dca1327ca93c452fecfcdf8756a39ffbb61c04e910160405180910390a35050565b5f5f60408385031215610166575f5ffd5b82356001600160a01b038116811461017c575f5ffd5b946020939093013593505050565b5f5f6040838503121561019b575f5ffd5b5050803592602090910135915056fea26469706673582212204faa8bae8c12c46e0b0ba7ee7019a39bf812543c824866ad5dfc2ea7ac7ced8f64736f6c634300081e0033",
+    "bytes": 508,
+    "sha256": "4027b07c4a3fc57d6a578ea22ea39759a6b9eb146dd1f148f216111f5c19e76f",
+    "linkReferences": {}
+  },
+  "runtimeBytecode": {
+    "hex": "0x608060405260043610610028575f3560e01c80638b1592b51461002c578063e3ce094d14610071575b5f5ffd5b348015610037575f5ffd5b5061005f610046366004610155565b5f60208181529281526040808220909352908152205481565b60405190815260200160405180910390f35b61008461007f36600461018a565b610086565b005b34156100a55760405163e320176b60e01b815260040160405180910390fd5b8115806100b0575080155b156100cd5760405162b4a20960e31b815260040160405180910390fd5b335f9081526020818152604080832085845290915290205415610103576040516317fd8aab60e31b815260040160405180910390fd5b335f8181526020818152604080832086845282529182902084905590518381528492917fd4cebf902bc5a93f89fc70c15dca1327ca93c452fecfcdf8756a39ffbb61c04e910160405180910390a35050565b5f5f60408385031215610166575f5ffd5b82356001600160a01b038116811461017c575f5ffd5b946020939093013593505050565b5f5f6040838503121561019b575f5ffd5b5050803592602090910135915056fea26469706673582212204faa8bae8c12c46e0b0ba7ee7019a39bf812543c824866ad5dfc2ea7ac7ced8f64736f6c634300081e0033",
+    "bytes": 480,
+    "sha256": "d494186e8cfe35cbe7d8c1cbcc5ff815944517ae9cd300eb5a648c91ee5f586f",
+    "linkReferences": {},
+    "immutableReferences": {}
+  },
+  "metadata": {
+    "compiler": {
+      "version": "0.8.30+commit.73712a01"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "name": "AlreadyCommitted",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EmptyReference",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "NonZeroValue",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "operationRef",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "commitment",
+              "type": "bytes32"
+            }
+          ],
+          "name": "Committed",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "operationRef",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "commitment",
+              "type": "bytes32"
+            }
+          ],
+          "name": "commit",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "operationRef",
+              "type": "bytes32"
+            }
+          ],
+          "name": "commitments",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "commitment",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ],
+      "devdoc": {
+        "details": "A commitment is neither a performance proof nor verification of private inputs.",
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "notice": "An opaque receipt target. Account permissions belong to the smart account.",
+        "version": 1
+      }
+    },
+    "settings": {
+      "compilationTarget": {
+        "contracts/AngbaoCommitment.sol": "AngbaoCommitment"
+      },
+      "evmVersion": "shanghai",
+      "libraries": {},
+      "metadata": {
+        "bytecodeHash": "ipfs",
+        "useLiteralContent": true
+      },
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "remappings": []
+    },
+    "sources": {
+      "contracts/AngbaoCommitment.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.30;\n\n/// @notice An opaque receipt target. Account permissions belong to the smart account.\n/// @dev A commitment is neither a performance proof nor verification of private inputs.\ncontract AngbaoCommitment {\n    error NonZeroValue();\n    error EmptyReference();\n    error AlreadyCommitted();\n\n    mapping(address account => mapping(bytes32 operationRef => bytes32 commitment)) public commitments;\n\n    event Committed(address indexed account, bytes32 indexed operationRef, bytes32 commitment);\n\n    function commit(bytes32 operationRef, bytes32 commitment) external payable {\n        if (msg.value != 0) revert NonZeroValue();\n        if (operationRef == bytes32(0) || commitment == bytes32(0)) revert EmptyReference();\n        if (commitments[msg.sender][operationRef] != bytes32(0)) revert AlreadyCommitted();\n        commitments[msg.sender][operationRef] = commitment;\n        emit Committed(msg.sender, operationRef, commitment);\n    }\n}\n",
+        "keccak256": "0x382f3e9a6b85ec9a0116e7d53593f3b4ed0c91cb164204ad82f7cdcd820e7881",
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "metadataSha256": "aaa27a056169e84170c95df95827ba6f23a91b41cace2ea763614f5250c81e5b",
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 14,
+        "contract": "contracts/AngbaoCommitment.sol:AngbaoCommitment",
+        "label": "commitments",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_mapping(t_bytes32,t_bytes32))"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_mapping(t_bytes32,t_bytes32))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(bytes32 => bytes32))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_bytes32,t_bytes32)"
+      },
+      "t_mapping(t_bytes32,t_bytes32)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => bytes32)",
+        "numberOfBytes": "32",
+        "value": "t_bytes32"
+      }
+    }
+  },
+  "authority": {
+    "liveChainCompatibilityEstablished": false,
+    "deployed": false,
+    "sourceRegistryActivated": false,
+    "ownerApprovalEstablished": false,
+    "signingAllowed": false,
+    "submissionAllowed": false,
+    "financialAuthority": false
+  },
+  "buildDigest": "680511489b111e193bc1463111ee611dc08a09ff30a93633a27cb851e08f6415"
+}

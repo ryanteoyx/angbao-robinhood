@@ -1,0 +1,14 @@
+{
+  "name": "angbao-checkpoint-local-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isolated reproducible compiler and in-memory EVM tests; no chain transport",
+  "type": "module",
+  "engines": {"node": ">=22.13.0"},
+  "dependencies": {
+    "@ethereumjs/common": "10.1.2",
+    "@ethereumjs/evm": "10.1.2",
+    "@ethereumjs/util": "10.1.2",
+    "solc": "0.8.30"
+  }
+}

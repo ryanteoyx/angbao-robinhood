@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Angbao · Agent setup</title><link rel="stylesheet" href="/brand-fonts.css"><link rel="stylesheet" href="/styles.css">
+<style>
+body{max-width:760px;margin:4vh auto;padding:24px;font-size:14px;line-height:1.65}h1{font-size:28px;line-height:1.2;font-weight:600;margin:34px 0 16px}h2{font-size:17px;margin:32px 0 12px}pre,blockquote{white-space:pre-wrap;overflow-wrap:anywhere;background:#fafafa;padding:18px;border:1px solid #e5e5e5;border-radius:6px;margin:16px 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px}a{text-decoration:underline;text-underline-offset:3px;color:inherit}.note{padding:16px;border-left:2px solid #ddd;margin:24px 0}li{margin-bottom:8px}strong{font-weight:600}
+</style>
+</head>
+<body>
+<a href="/#connections">← Agents</a>
+<h1>Connect your agent</h1>
+<p>Run reviews and save research with your existing agent, without an Angbao account.</p>
+<p><a href="https://www.angbao.money/">Get the current Angbao installer and start guide ↗</a></p>
+<h2>1. Choose where your data stays</h2>
+<p>Your agent first checks where it can run commands and keep files. <strong>Keep with this agent</strong> is the recommended choice when that storage is available. The agent should name the computer and folder: a cloud agent’s files may stay on its cloud computer.</p>
+<p>On a shared computer, agents using the same system account may be able to read this folder. Your agent should explain that access before you choose.</p>
+<p><strong>Keep on my computer</strong> is available when your agent has a working connection to it. Confirm the location before transferring or installing Angbao. Keep using an existing installation in the place you already chose.</p>
+<h2>2. Prepare Angbao</h2>
+<p>Your agent checks what this computer needs and follows the private installation guide. The setup file comes from the person providing this Angbao release.</p>
+<p>Your agent remembers the location you confirmed and continues from the last verified step after an interruption. Your saved figures, review settings and earlier results stay in place.</p>
+<p>If a file is missing or the computer is asleep, your agent explains the one step needed to continue. You do not need to choose your storage again.</p>
+<details><summary>Installation details</summary><p>Terminal access, Node 22.13 or later and storage that survives restart are required. The supplied guide is <code>CLI-DISTRIBUTION.md</code>, also included as <code>references/connection.md</code> with the skill. The resumable controller checks the supplied runtime and archive, records progress privately, and reuses the verified workspace. New programs install separately; an old server must be stopped by the agent only after its identity is verified. The manual fallback is only for an owned empty project. It cannot wake a computer or download a runtime. It does not change global agent settings, credentials or PATH. Run one server for the recorded data folder.</p></details>
+<h2>3. Run a review</h2>
+<p>Choose <strong>Try a savings review</strong> to preview a complete example before saving it. There are no internal settings to fill in. The example does not replace your own figures or review settings.</p><p>For your own review, supply your figures and check the approach before running. No signup is required.</p>
+<details><summary>Commands for your agent</summary>
+<p>Open a second terminal on the same computer. Use the installed binary directly; no global command-path change is needed. Replace the project path with your chosen location.</p>
+<pre><code>/chosen/angbao-project/programs/0.5.9/bin/angbao agent sample preview --preset try-savings
+# Save only when requested, with the current revision from that preview.
+/chosen/angbao-project/programs/0.5.9/bin/angbao agent sample save --preset try-savings --etag '"N"' --key sample-first-001</code></pre>
+<p>No Angbao sign-in is needed. To review your own values, choose Start first review in the workspace, or save a complete private declaration with <code>/chosen/angbao-project/programs/0.5.9/bin/angbao agent setup --file /chosen/context.json --etag '&quot;0&quot;' --key local-setup-001</code>. Use the current revision returned by Context. Sample values remain labelled sample.</p>
+<p>Resume the recorded setup when restarting Angbao. Your settings, reviews and research stay in the same saved workspace. If you start on a different port, set <code>ANGBAO_API_URL</code> to the address shown before running agent commands.</p>
+<details><summary>Command and MCP details</summary><p>Each review saves the strategy version, inputs and settings used. To save through the agent, send the current quoted revision and a unique operation key. If the response is uncertain, keep the original key, request body and revision for a deliberate retry. A new key would create a separate review.</p><p>For stdio MCP, use the installed binary’s absolute path with arguments <code>["mcp"]</code>. Start the local server first and choose one connection method. This bridge uses protocol <code>2025-06-18</code>; each external client still needs a connection test.</p></details>
+</details>
+<h2>4. Review again</h2>
+<p>Open a review of your own figures and choose <strong>Review again</strong>. Confirm the current inputs or update them before running. Angbao keeps the original strategy version and settings, then shows what changed between the saved reviews.</p>
+<details><summary>Agent command</summary><p>From your agent, use <code>/chosen/angbao-project/programs/0.5.9/bin/angbao agent repeat --review SAVED_REVIEW_UUID --inputs-confirmed yes --etag '&quot;2&quot;' --key local-repeat-001</code> with the current saved revision. A due date is a prompt to review; it does not schedule a background job.</p></details>
+<h2>5. Save research</h2>
+<p>Save and revisit your agent’s final research. Open Research to write a brief with the guided form, preview it and save. Advanced JSON remains available for imports.</p>
+<p>Save the final answer, sources and remaining questions. Briefs stay unverified. Saving does not call Elfa or a model. Leave out credentials and private reasoning.</p>
+<p>For an optional local portfolio check, choose <strong>Research → Check against portfolio</strong>. Try the labelled example or enter your own values and targets, add your agent’s assessment, preview and save. Check again preserves the selected targets. A proposed split does not schedule trades or reserve money.</p>
+<h2>6. Use an account later</h2>
+<p>When you want to use this setup in an account, choose <strong>Agents → Export setup</strong>. Sign in to the account workspace and choose <strong>Agents → Import setup</strong>. Review the account and settings before importing.</p>
+<p>You can keep working locally if you stop or cannot sign in. Keep your local copy until the import is confirmed. This is a one-time import; automatic sync is not available.</p>
+<details><summary>Account access details</summary><p>Credentials, access keys, plans and financial permissions do not import. Optional agent access to an account uses an owner-issued key with selected scopes and expiry. Keep <code>ANGBAO_AGENT_TOKEN</code> in the agent’s secret environment and set <code>ANGBAO_REMOTE_ORIGIN</code> to the exact HTTPS origin.</p><p>Choose account mode explicitly with <code>/chosen/angbao-project/programs/0.5.9/bin/angbao agent --hosted</code> or <code>/chosen/angbao-project/programs/0.5.9/bin/angbao mcp --hosted</code>. Environment credentials alone do not change the default local mode. Never paste access tokens in chat, arguments, URLs or exports. Failed account access does not switch to sample data.</p></details>
+<div class="note">Financial actions are off. Plans are simulated; no payment is collected.</div>
+<details><summary>Current availability</summary><p>Local terminal use has been tested. Account sign-in, email delivery and individual MCP clients still need end-to-end testing. Future work includes linked workspaces, collaboration, venue connections and Robinhood Chain controls. Installing Angbao does not allow an agent to trade, sign transactions or spend money.</p></details>
+</body>
+</html>

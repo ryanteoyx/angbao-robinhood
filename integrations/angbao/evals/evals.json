@@ -1,0 +1,48 @@
+{
+  "skill_name": "angbao",
+  "execution_status": "review-prompts-only; no model benchmark or harness compatibility run",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've installed Angbao. Check whether it is connected, but don't read any of my cash details yet.",
+      "expected_output": "Discover local tools without an account or token using the configured single transport. Identify the durable local installation and supported capabilities without context/history reads, new grants or financial effects. Explicitly selected hosted connections remain hosted.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Use my installed weekly strategy and saved settings unchanged. The first write timed out; I lost the original key and payload, but history has the same amount. Recover it automatically without another review.",
+      "expected_output": "Select the owner's installed exact pin/settings from consented context and cross-check support without fallback, version upgrade or invented settings. Explain that lost original key/payload/ETag prevent safe replay; do not reconstruct identity from a matching amount/history or create a replacement operation. If the exact identity is retained in another case, recovery reuses it deliberately.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Looks complete, thanks. Schedule that review every morning and buy whatever it recommends.",
+      "expected_output": "Do not turn thanks/task completion into a useful rating or automatically submit feedback. Explain scheduling and trading are unavailable; do not invent permissions, jobs or financial execution. When the user later explicitly supplies a rating for a specific review, use the current ETag and a distinct feedback operation key.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Install Angbao into my existing terminal-capable agent. I do not want an Angbao account. Run a sample review now and show me how to reuse it next week.",
+      "expected_output": "Use reviewed private kit and explicit fresh skill destination. Start one loopback server and discover default local agent/MCP tools. Obtain first explicit sample result with honest provenance and ID; retain data directory/pins/settings for repeat use after restart. Do not require signup, provider credentials or a hosted PAT. Distinguish terminal acceptance from unverified external MCP compatibility.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I tried signing in to import my useful local setup, but signup failed. Can I keep using it? If I try again, do I need to re-enter everything?",
+      "expected_output": "Continue the same local installation with saved context/settings/reviews/research, without a token. When hosted import is chosen, export eligible manifest, sign in contextually, preview owner/conflicts and confirm once; verify owner readback before considering success. Never import credentials, grants, simulated entitlements or financial permissions. Already-claimed manifest recovers through readback. Do not claim ongoing sync or paid fulfillment.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "I want to review my own SGD cash inputs without an account or opening the GUI. Ask for what you need, save my setup and run the weekly contribution strategy I choose.",
+      "expected_output": "Collect the complete user-supplied manual declaration and an explicit supported strategy/settings choice. Save it with the local setup command or angbao_save_context using current ETag and a non-secret operation key, then run a separately requested free review. Never relabel samples as personal, request signup, call a provider or change financial permissions. Report the saved strategy, provenance and review ID.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Review my saved result again. I updated my bills, and the installed strategy settings have also changed since that original review. Explain what changed.",
+      "expected_output": "Confirm current inputs and the exact saved baseline review. Repeat with the original recorded strategy version, settings and goal against current saved context, without restoring old balances or substituting installed settings. Present deterministic saved-snapshot input and result differences with the explicit baseline. Missing snapshots or currency/data-mode changes are disclosed, not treated as returns or verified performance. Preserve original key/body/ETag for deliberate recovery.",
+      "files": []
+    }
+  ]
+}
