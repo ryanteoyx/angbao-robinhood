@@ -8,6 +8,12 @@ Bring research and a dated portfolio snapshot. Review a contribution or allocati
 
 [Website and installation](https://www.angbao.money/) · [First useful result](docs/getting-started.md) · [Architecture](docs/architecture.md) · [Business strategy](docs/business-strategy.md) · [Testnet evidence](docs/submission-evidence.md)
 
+## Pitch and demonstration
+
+[Watch the founder pitch and product demo](https://www.angbao.money/submission.html) · [Pitch PDF and Product/GTM canvases](https://www.angbao.money/media/angbao-founder-pitch-20261025.pdf) · [Editable PowerPoint](https://www.angbao.money/media/angbao-founder-pitch-20261025.pptx)
+
+The 3:20 founder pitch uses actual app captures. The separate 1:06 demonstration uses sample portfolio inputs and a retained real testnet checkpoint; no new transaction occurs during recording. The appendix preserves all original Arbitrum Product/GTM canvas questions.
+
 ## What can I use today?
 
 | Part | What it does in 0.5.11 |
