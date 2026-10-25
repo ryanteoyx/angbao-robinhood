@@ -6,6 +6,8 @@
 
 This describes the **0.5.11 public snapshot**. A module present in source is not automatically an enabled service. Current behavior and planned additions are labelled throughout.
 
+For the complete user story, read the [product overview](product-overview.md). The [57-family feature map](feature-map.md) keeps the broader scope visible without presenting roadmap items as delivered architecture.
+
 ## 1. System map
 
 ```mermaid

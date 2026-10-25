@@ -18,11 +18,15 @@ A later documentation commit is not a new runtime release. This public repositor
 
 ## Submission materials
 
+- [Submitted event entry](https://arbitrum-singapore.hackquest.io/projects/Angbao), listed in the event's Project Gallery. The entry and its readable product description are separate from this source snapshot.
+- [Written product overview](product-overview.md) and [complete 57-family feature map](feature-map.md), for reviewers who prefer to read rather than watch.
 - [Founder pitch and product demonstration](https://www.angbao.money/submission.html): 200.667-second founder narration with slides/captured UI, and a 66.433-second focused demonstration.
 - [Final PDF](https://www.angbao.money/media/angbao-founder-pitch-20261025.pdf) and [editable PowerPoint](https://www.angbao.money/media/angbao-founder-pitch-20261025.pptx): eight core slides plus two appendices retaining all 16 original Arbitrum Product/GTM canvas questions.
 - [GitHub presentation release](https://github.com/ryanteoyx/angbao-robinhood/releases/tag/submission-20261025): use the v4 attachments; earlier v3 remains historical.
 
 The original founder recording is preserved privately. The edit removes one unsupported named-harness aside and ending silence, preserves the founder voice/cadence, normalizes quiet audio and adds captions. Captured product screens are labelled; they are not presented as a continuous live trade or new blockchain operation. These presentation updates do not change the frozen software or create financial authority.
+
+The founder confirms that all Angbao-authored project code was produced during the Founder House period. This is the founder's code-origin declaration; retained third-party libraries and notices have their own provenance. The clean public repository omits private development history and is not an independent audit of authorship dates.
 
 ## Current accepted surface
 

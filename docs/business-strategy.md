@@ -6,6 +6,8 @@
 
 This is a startup thesis to test, **not evidence of product-market fit**. Prices, funnels, sponsor asks and network effects below are proposed. No revenue, partnership, brokerage distribution or live managed subscription is claimed.
 
+The [product overview](product-overview.md) explains the complete journey without the video. The [feature map](feature-map.md) preserves all 57 feature families and the order in which working slices can expand.
+
 ## 1. Who needs this first?
 
 | Question | Initial answer to test |

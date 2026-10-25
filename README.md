@@ -8,6 +8,17 @@ Bring research and a dated portfolio snapshot. Review a contribution or allocati
 
 [Website and installation](https://www.angbao.money/) · [First useful result](docs/getting-started.md) · [Architecture](docs/architecture.md) · [Business strategy](docs/business-strategy.md) · [Testnet evidence](docs/submission-evidence.md)
 
+## Understand Angbao without watching the video
+
+Read the **[product overview](docs/product-overview.md)** for the problem, a complete example, the trust model, Robinhood Chain's role and the path to a business. The **[full feature map](docs/feature-map.md)** retains all 57 feature families, with a clear distinction between the working submission, foundations and future work.
+
+| Time available | Suggested review |
+| --- | --- |
+| Two minutes | This README and the [current product table](#what-can-i-use-today) |
+| Five minutes | [Product overview](docs/product-overview.md) and [actual testnet evidence](docs/submission-evidence.md#robinhood-chain-proof) |
+| Technical review | [Run a local trial](docs/getting-started.md), then [architecture](docs/architecture.md) and [contract build](docs/development-and-release.md#reproduce-the-fixed-contract-build) |
+| Venture/product review | [Customer, pricing, GTM and moat thesis](docs/business-strategy.md), then the [complete feature map](docs/feature-map.md) |
+
 ## Pitch and demonstration
 
 [Watch the founder pitch and product demo](https://www.angbao.money/submission.html) · [Pitch PDF and Product/GTM canvases](https://www.angbao.money/media/angbao-founder-pitch-20261025.pdf) · [Editable PowerPoint](https://www.angbao.money/media/angbao-founder-pitch-20261025.pptx)
