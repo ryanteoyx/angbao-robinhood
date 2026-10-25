@@ -1,48 +1,81 @@
 # Angbao
 
-Financial context for your personal agent. Angbao is a signup-free local CLI, MCP tool layer and browser workspace for research, portfolio proposals, saved decisions and export.
+**Financial context for the personal agent you already use.**
 
-This source snapshot is **personal-local 0.5.11**, pinned to development commit `6e1dc8dd36f64f63e568956928e3fb6bd027f10a`. Its runtime, UI and skill are the exact 143 files distributed in the release archive, plus six contract-build files from that commit. Archive SHA256: `febde006ba467da6b8a7904c44e69039009b79555c3f1d88284d361327ced0f5` (659,174 bytes).
+Bring research and a dated portfolio snapshot. Review a contribution or allocation proposal with its evidence, assumptions and gaps. Save the decision, compare it with earlier work, and pick it up again through the CLI, MCP or local app.
 
-## Run locally
+**Start with a useful review. Earn permission to do more.** Local use needs no Angbao signup, card, broker connection or wallet.
 
-Requires Node.js **22.13.0 or later**. The local runtime has zero npm dependencies. From this repository, choose a new disposable workspace; keep its path for later restarts:
+[Website and installation](https://www.angbao.money/) · [First useful result](docs/getting-started.md) · [Architecture](docs/architecture.md) · [Business strategy](docs/business-strategy.md) · [Testnet evidence](docs/submission-evidence.md)
+
+## What can I use today?
+
+| Part | What it does in 0.5.11 |
+| --- | --- |
+| **Personal-agent tools** | A project skill, CLI and optional stdio MCP bridge. Your existing agent supplies reasoning; Angbao stores the financial work. |
+| **Research** | Retain supplied sources, a separately authored assessment, supporting and contrary evidence, assumptions and missing information. An optional owner-configured Elfa profile can bring in bounded source evidence. |
+| **Portfolio review** | Check manually supplied or labelled sample values against selected targets and owner rules; calculate a proposal. Keep/watch/research are useful outcomes too. |
+| **Local app** | Inspect the same saved reviews, briefs and proposals used by the agent. Preview before saving; compare earlier work; archive and export. |
+| **Continuity** | Reopen exact saved records after restart and provide a reference to another agent already authorized for the same workspace. |
+| **Robinhood Chain demo** | An owner-approved decision fingerprint recorded in Angbao's own contract on Robinhood Chain Testnet, with retained receipt and recovery. |
+
+A proposal is not a trade. The current contract records a decision checkpoint; it does not enforce a spending policy. Live broker/bank connections, cross-installation sync, hosted subscriptions, unattended jobs, multiplayer and capped/revocable smart-account execution are **future delivery**, not included in this release. [Full status and evidence](docs/submission-evidence.md).
+
+## Try the source in a clean workspace
+
+Requires **Node.js 22.13.0 or newer**. This local runtime has **zero npm dependencies**; there is no `npm start` or registry package to install.
 
 ```sh
+git clone https://github.com/ryanteoyx/angbao-robinhood.git
+cd angbao-robinhood
+node --version
 node cli/angbao.mjs --help
 taskReviewData=$(mktemp -d /tmp/angbao-review.XXXXXX)
-env ANGBAO_DATA_DIR="$taskReviewData" ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs start --port 4317
+env ANGBAO_DATA_DIR="$taskReviewData" node cli/angbao.mjs start --port 4317
 ```
 
-Open `http://127.0.0.1:4317/`. In a second terminal:
+Leave that terminal running. Open **http://127.0.0.1:4317/** and choose **Try a savings review** or **Try a portfolio check**. These are labelled examples. In a second terminal in this repository:
 
 ```sh
-env ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs status
-env ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs review --demo
-env ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs export
+env ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs agent doctor
+env ANGBAO_API_URL='http://127.0.0.1:4317' node cli/angbao.mjs agent sample preview --preset try-savings
 ```
 
-If that port is occupied, use a free port and the same matching `ANGBAO_API_URL` in every client. Preserve existing data and run only one writer for a workspace. Sample proposals are synthetic; these commands do not connect a broker, fetch a model or provider, trade, or enable a wallet.
+Preview does not save. The [getting-started guide](docs/getting-started.md) covers an explicit save, history, restart, export, agent/MCP connection and troubleshooting. The directory above is a disposable **trial**: record the printed path if you want to restart it, and choose persistent storage before keeping personal work. Never start two writers for the same data directory.
 
-For personal-agent setup, read [AGENT-QUICKSTART.md](AGENT-QUICKSTART.md) and [the skill](integrations/angbao/SKILL.md). The chosen agent must actually load the skill; installation alone is not a compatibility claim.
+For normal installation, give your agent the [public installation guide](https://www.angbao.money/angbao-install.md). Its live manifest selects the verified release and checksum. The installer does not activate a provider or wallet, edit global agent configuration, or create an account. macOS/Linux with compatible Node, npm and curl are the supported bootstrap path; Windows has not been accepted.
 
-## Robinhood Chain checkpoint
+## Understand the system
 
-The optional owner profile records a fingerprint of a retained proposal on Robinhood Chain Testnet. `AngbaoCommitment` stores a write-once commitment per caller and operation reference. It does not verify private inputs, research truth, policy correctness, performance or financial authority. Contract creation and recording a proposal require separate explicit owner wallet approvals. Normal startup does not activate this profile.
-
-The source/build artifact is separate from transaction and deployment evidence supplied with the project submission. No broker trading or automatic investment execution is claimed. Hosted sync, paid fulfillment, maintained jobs and multiplayer are separate rollout work.
-
-## Reproduce the fixed contract build
-
-The artifact includes literal Solidity source, exact compiler input, ABI, bytecode and provenance. To check it, install the isolated pinned development tools into a temporary directory, leaving runtime dependencies unchanged:
-
-```sh
-taskToolingRoot=$(mktemp -d /tmp/angbao-checkpoint-tooling.XXXXXX)
-cp scripts/checkpoint-tooling/package.json scripts/checkpoint-tooling/package-lock.json "$taskToolingRoot/"
-npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --prefix "$taskToolingRoot"
-env ANGBAO_CHECKPOINT_TOOLING_DIR="$taskToolingRoot" node scripts/build-angbao-commitment.mjs --check
+```mermaid
+flowchart LR
+    A[Your personal agent] --> B[Skill + CLI / MCP]
+    B --> C[Private Angbao runtime]
+    G[Local app] --> C
+    C --> D[Sources · rules · proposals · history]
+    E[Optional approved Elfa evidence] --> C
+    C -. separate owner-reviewed operation .-> W[Owner wallet]
+    W --> R[Robinhood Chain checkpoint]
+    R --> C
 ```
 
-See [build provenance](docs/product/decision-checkpoint-build.md). This is an offline compiler/artifact check, not a live transaction or chain-compatibility proof. Historical build documents mention repository tests omitted from this minimal source snapshot.
+Research, reasoning handoff, calculation and memory are **offchain**. The onchain demo records an opaque commitment and event. Personal portfolio text, research bodies and the private opening stay offchain. [Architecture and trust boundaries](docs/architecture.md).
 
-Existing source headers and third-party notices are preserved. This snapshot adds no new license grant. It contains no credentials, user workspaces, private opening, transaction journal or private Git history.
+## Read by role
+
+| I want to… | Read |
+| --- | --- |
+| Install, run and keep my first result | [Getting started](docs/getting-started.md) |
+| Connect an existing personal agent | [Getting started: agent and MCP](docs/getting-started.md#use-your-existing-agent), then the [packaged skill](integrations/angbao/SKILL.md) |
+| Understand what is offchain/onchain and find modules | [Technical architecture](docs/architecture.md) |
+| Understand the wedge, pricing, distribution and moat thesis | [Business strategy](docs/business-strategy.md) |
+| Review the exact contract, transactions and current limits | [Submission evidence](docs/submission-evidence.md) |
+| Reproduce a check or contribute a bounded change | [Development and release](docs/development-and-release.md) |
+
+## Source and provenance
+
+This is a clean **source-available submission snapshot**, not the private development repository or its history. The 0.5.11 runtime/UI/skill comes from development commit `6e1dc8dd36f64f63e568956928e3fb6bd027f10a`; the initial public snapshot is `40cded3d7bd43100b378fb391a7676362175b75f`. Documentation updates can advance this repository without changing that release. The archive is 659,174 bytes; SHA-256 `febde006ba467da6b8a7904c44e69039009b79555c3f1d88284d361327ced0f5`.
+
+Existing source headers and third-party notices are retained. No repository-wide license grant has been added; do not assume that public visibility grants unrestricted reuse. `AngbaoCommitment.sol` carries its own MIT SPDX header. This repository includes no credentials, personal workspaces, private openings or transaction journals.
+
+Status is dated **25 October 2026**. Proposed services and ecosystem support are hypotheses, not launched plans or partner commitments.
